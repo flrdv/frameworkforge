@@ -1,21 +1,17 @@
 # Framework Forge
 
 ## Motivation
-There are many benchmarks existing, **and none of them is correct**. Neither does this, because its purpose
-is not to demonstrate, how fast frameworks will work on the simple hello world and/or adding big latencies
-syntactically. This is just not representative: the more latency there is, the less contribution of the framework.
-So, we're basically measuring how well __the language__ can hang in I/O. For example, adding 500ms latency already
-erases any overhead by framework, so it basically makes no sense.
+**There are many benchmarks, and none of them is correct. So neither does this one.**
 
-However, we do benchmark the **bare framework overhead**. Databases aren't the part of it. So what we do, is checking
-edge cases like:
-- Bare GET request
-- Simple Hello-world POST request
-- Huge request with a veeery long request line and a lot of headers
-- Colossal body in POST request
+The more delay in user code, the less contribution of the framework into the overall performance. So by that, there
+won't be tests of CRUD or any other kind of applications, that are IO-bound. Instead, what we're testing here is the
+pure performance of web-frameworks.
 
-So by that, we can see the overhead of the framework by itself. No matter what happens in business logic, **if you're
-already looking at benchmarks - it must be fast enough to gain from web-framework switching**.
+Almost always, the web-framework doesn't matter, if the user-code executes for too long. For example, 500ms of delay
+already levels almost any of toolchain's cost. But if you do want to switch to another instrument, thus looking
+benchmarks, your business logic must be already fast enough to gain from the switching. In this case, more interesting
+would be to look at how different libraries handle with different edge-cases. No matter whether it's a simple GET,
+file distribution, huge HTTP request or the request, that causes the application to respond with an error.
 
 ## Approach
 Benchmark target must be a complete web-application, which uses the specified framework. It must neither be a
@@ -44,4 +40,4 @@ working).
 ## Pros
 The stand (we) aims to provide the highly flexible, extensible and configurable platform. Maybe, once I'll even
 introduce a web-gui and similar to hardware benchmarks feature, where everyone can run the benchmarks on own machine
-and submit results to be visible publicly. Who knows, who knows
+and submit results to be visible publicly. Who knows, who knows.
