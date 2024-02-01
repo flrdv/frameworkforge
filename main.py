@@ -1,9 +1,7 @@
+import csv
 import dataclasses
 import os
-import shutil
-import string
 import subprocess
-import time
 
 import internal.si as si
 
@@ -54,12 +52,6 @@ def run_wrk(
     return subprocess.check_output(
         cmd + [addr],
     ).decode()
-
-
-# @dataclasses.dataclass
-# class Latency:
-#     avg: int
-#     max: int
 
 
 @dataclasses.dataclass
