@@ -75,6 +75,17 @@ def parse_wrk_output(out: str) -> Report:
     )
 
 
+def dump_csv(results: dict[str, dict[str, Report]], file: str = "results.csv"):
+    with open(file, "w+") as f:
+        writer = csv.writer(f)
+
+        for framework, cases in results.items():
+            for case, report in cases.items():
+                writer.writerow(
+                    [framework, case, report.rps, report.avg_latency, report.max_latency]
+                )
+
+
 def main():
     results: dict[str, dict[str, Report]] = {}
 
@@ -97,6 +108,8 @@ def main():
                       f"max={si.serialize(report.max_latency)}")
 
         print(end="\n\n")
+
+    dump_csv(results)
 
 
 if __name__ == "__main__":
